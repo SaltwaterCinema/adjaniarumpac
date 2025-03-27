@@ -203,16 +203,17 @@ Adjani Guerrero Arumpac is an independent Filipina documentary filmmaker, educat
     </div>
 
    
-    <div id="visitor-counter" style="display: none;">
+   <div id="visitor-counter" style="display: none;">
     <p>Visitor Count: <span id="count">1</span></p>
     <p>Location: <span id="location">Loading...</span></p>
 </div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        let count = sessionStorage.getItem("visitorCount") || 0;
+        // Use localStorage instead of sessionStorage for a persistent count
+        let count = localStorage.getItem("visitorCount") || 0;
         count++;
-        sessionStorage.setItem("visitorCount", count);
+        localStorage.setItem("visitorCount", count);
         document.getElementById("count").textContent = count;
 
         // Fetch user location (Country Only)
