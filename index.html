@@ -14,7 +14,16 @@
 .colored-block {
         background-color: #C0C0C0; /* Silver */
         border-radius: 5px; /* Optional: rounded corners */
-    }
+ 	 }
+        #visitor-counter {
+            background-color: #f0f0f0;
+            padding: 10px;
+            width: fit-content;
+            margin: 20px auto;
+            border-radius: 5px;
+            font-weight: bold;
+            display: none; /* Hidden by default */
+        }
     </style>
 </head>
 <body>
@@ -192,5 +201,39 @@ Adjani Guerrero Arumpac is an independent Filipina documentary filmmaker, educat
             </ul>
         </div>
     </div>
+
+   
+    <div id="visitor-counter" style="display: none;">
+    <p>Visitor Count: <span id="count">1</span></p>
+    <p>Location: <span id="location">Loading...</span></p>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        let count = sessionStorage.getItem("visitorCount") || 0;
+        count++;
+        sessionStorage.setItem("visitorCount", count);
+        document.getElementById("count").textContent = count;
+
+        // Fetch user location (Country Only)
+        fetch("https://api.country.is/")
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("location").textContent = data.country;
+            })
+            .catch(error => {
+                document.getElementById("location").textContent = "Location unavailable";
+            });
+    });
+
+    // Secret key press to reveal the counter (press "V")
+    document.addEventListener("keydown", function(event) {
+        if (event.key.toLowerCase() === "v") {
+            let counter = document.getElementById("visitor-counter");
+            counter.style.display = counter.style.display === "none" ? "block" : "none";
+        }
+    });
+</script>
+
 </body>
 </html>
